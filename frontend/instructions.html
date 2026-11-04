@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam Instructions | Online Exam System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/instructions.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-brand">
+          <span class="brand-mark-sm">OE</span>
+          <span class="topbar-title">Exam Instructions</span>
+        </div>
+        <a href="/dashboard.html" class="btn btn-secondary btn-sm">Back to Dashboard</a>
+      </div>
+    </header>
+
+    <main class="page">
+      <div class="instr-card" id="instrCard">
+        <h1 class="instr-title" id="examTitle">Examination</h1>
+        <p class="instr-sub" id="examType">Objective (MCQ)</p>
+
+        <section class="instr-summary" id="instrSummary"></section>
+
+        <section class="instr-section">
+          <h2>Important Instructions</h2>
+          <ul class="instr-list">
+            <li>The examination is timed. It will auto-submit when the timer reaches zero.</li>
+            <li>Each question has four options. Select only one option per question.</li>
+            <li>You can navigate between questions using <strong>Save &amp; Next</strong>, <strong>Previous</strong>, or the question palette.</li>
+            <li>Use <strong>Mark for Review &amp; Next</strong> to flag a question you wish to revisit.</li>
+            <li>Use <strong>Clear Response</strong> to remove a selected answer.</li>
+            <li>You may switch between subjects at any time without losing your answers.</li>
+            <li>Click <strong>Submit Test</strong> when you are done. You will see a confirmation before final submission.</li>
+            <li>Once submitted, you cannot change your answers.</li>
+          </ul>
+        </section>
+
+        <section class="instr-section">
+          <h2>Marking Scheme</h2>
+          <ul class="instr-list" id="markingScheme"></ul>
+        </section>
+
+        <div class="instr-actions">
+          <a href="/dashboard.html" class="btn btn-secondary">Back to Dashboard</a>
+          <button id="startTestBtn" class="btn btn-success btn-lg">Start Test</button>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="/js/instructions.js"></script>
+  </body>
+</html>
