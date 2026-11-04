@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Exam System | Student Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+  </head>
+  <body class="login-body">
+    <div class="login-shell">
+      <div class="login-brand">
+        <div class="login-brand-inner">
+          <span class="brand-mark">OE</span>
+          <h1 class="brand-title">Online Examination System</h1>
+          <p class="brand-sub">
+            A professional computer-based test environment for students.
+          </p>
+          <ul class="brand-points">
+            <li>Multiple subjects in a single exam</li>
+            <li>Live countdown timer</li>
+            <li>Question palette with status indicators</li>
+            <li>Instant score and detailed results</li>
+          </ul>
+        </div>
+      </div>
+
+      <main class="login-form-wrap">
+        <form id="loginForm" class="login-form" novalidate>
+          <h2 class="login-form-title">Student Login</h2>
+          <p class="login-form-sub">Sign in to access your examinations.</p>
+
+          <div class="field">
+            <label for="studentId">Student ID</label>
+            <input
+              type="text"
+              id="studentId"
+              name="studentId"
+              placeholder="e.g. STU2025001"
+              autocomplete="username"
+            />
+            <span class="field-error" id="studentIdError"></span>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="password-field">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+              />
+              <button
+                type="button"
+                id="togglePassword"
+                class="toggle-pass"
+                aria-label="Show password"
+              >
+                Show
+              </button>
+            </div>
+            <span class="field-error" id="passwordError"></span>
+          </div>
+
+          <div class="field-error server-error" id="loginError"></div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+            Login
+          </button>
+
+          <div class="demo-info">
+            <strong>Demo login</strong>
+            <p>Use any non-empty Student ID and password to sign in.</p>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <script type="module" src="/js/auth.js"></script>
+  </body>
+</html>

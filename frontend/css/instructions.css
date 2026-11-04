@@ -1,0 +1,95 @@
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+.instr-card {
+  background: var(--neutral-0);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+}
+.instr-title {
+  font-size: 1.7rem;
+  margin-bottom: 0.25rem;
+}
+.instr-sub {
+  color: var(--primary);
+  font-weight: 600;
+  margin: 0 0 1.5rem;
+}
+.instr-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.summary-tile {
+  background: var(--primary-soft);
+  border: 1px solid #dbeafe;
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  text-align: center;
+}
+.summary-tile .tile-label {
+  font-size: 0.75rem;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 0.25rem;
+}
+.summary-tile .tile-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+}
+.instr-section {
+  margin-bottom: 1.75rem;
+}
+.instr-section h2 {
+  font-size: 1.15rem;
+  margin-bottom: 0.75rem;
+  color: var(--neutral-800);
+}
+.instr-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.instr-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.6rem;
+  color: var(--neutral-700);
+  line-height: 1.55;
+}
+.instr-list li::before {
+  content: '';
+  position: absolute;
+  left: 0.3rem;
+  top: 0.55rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.instr-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .instr-card {
+    padding: 1.5rem 1.1rem;
+  }
+  .instr-actions {
+    flex-direction: column-reverse;
+  }
+  .instr-actions .btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Examination | Online Exam System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/exam.css" />
+  </head>
+  <body class="exam-body">
+    <header class="exam-topbar">
+      <div class="exam-topbar-left">
+        <span class="brand-mark-sm">OE</span>
+        <div class="exam-topbar-titles">
+          <span class="exam-name" id="examName">Examination</span>
+          <span class="exam-status">
+            <span class="status-dot"></span> In Progress
+          </span>
+        </div>
+      </div>
+      <div class="exam-topbar-center">
+        <div class="timer" id="timer" aria-live="polite">00:00:00</div>
+        <span class="timer-label">Time Remaining</span>
+      </div>
+      <div class="exam-topbar-right">
+        <div class="exam-user">
+          <span class="exam-user-label">Student</span>
+          <span class="exam-user-name" id="studentName">—</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="exam-subjectbar" id="subjectBar"></div>
+
+    <main class="exam-main">
+      <section class="exam-question-area">
+        <div class="question-head">
+          <div class="question-meta">
+            <span class="q-num" id="qNum">Question 1</span>
+            <span class="q-type">MCQ</span>
+          </div>
+          <div class="q-marks">
+            <span class="mark-correct" id="markCorrect">+4</span>
+            <span class="mark-negative" id="markNegative">-1</span>
+          </div>
+        </div>
+
+        <div class="question-text" id="questionText"></div>
+
+        <div class="options" id="optionsList"></div>
+
+        <div class="question-nav">
+          <button class="btn btn-secondary" id="prevBtn">Previous</button>
+          <button class="btn btn-secondary" id="clearBtn">Clear Response</button>
+          <button class="btn btn-secondary" id="markReviewBtn">Mark for Review &amp; Next</button>
+          <button class="btn btn-primary" id="saveNextBtn">Save &amp; Next</button>
+          <button class="btn btn-danger" id="submitBtn">Submit Test</button>
+        </div>
+      </section>
+
+      <aside class="exam-palette-wrap">
+        <div class="palette" id="palette"></div>
+        <div class="palette-legend">
+          <div class="legend-item"><span class="lg answered"></span> Answered</div>
+          <div class="legend-item"><span class="lg not-answered"></span> Not Answered</div>
+          <div class="legend-item"><span class="lg marked"></span> Marked for Review</div>
+          <div class="legend-item"><span class="lg answered-marked"></span> Answered &amp; Marked</div>
+          <div class="legend-item"><span class="lg not-visited"></span> Not Visited</div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Submit confirmation modal -->
+    <div class="modal-overlay" id="submitModal" hidden>
+      <div class="modal">
+        <h3 class="modal-title">Submit Examination?</h3>
+        <p class="modal-text" id="modalText">Are you sure you want to submit the test?</p>
+        <div class="modal-summary" id="modalSummary"></div>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" id="cancelSubmit">Cancel</button>
+          <button class="btn btn-success" id="confirmSubmit">Submit Now</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/js/exam.js"></script>
+  </body>
+</html>

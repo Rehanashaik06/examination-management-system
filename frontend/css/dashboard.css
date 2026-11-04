@@ -1,0 +1,184 @@
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--primary-dark);
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+.topbar-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.brand-mark-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.18);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.topbar-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.2px;
+}
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.topbar-user {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  text-align: right;
+}
+.user-label {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+.user-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.btn-sm {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+}
+
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+.page-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+.page-title {
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+.page-sub {
+  color: var(--neutral-500);
+  margin: 0;
+}
+.student-card {
+  background: var(--neutral-0);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius);
+  padding: 0.75rem 1.1rem;
+  box-shadow: var(--shadow-sm);
+  min-width: 220px;
+}
+.student-card-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.student-card-label {
+  color: var(--neutral-500);
+  font-size: 0.85rem;
+}
+.student-card-value {
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.exam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+.exam-card {
+  background: var(--neutral-0);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.exam-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  border-color: #bfdbfe;
+}
+.exam-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.exam-card-title {
+  font-size: 1.15rem;
+  margin: 0;
+  color: var(--neutral-900);
+}
+.exam-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.exam-meta {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem 1rem;
+}
+.exam-meta li {
+  display: flex;
+  flex-direction: column;
+}
+.exam-meta .meta-label {
+  font-size: 0.72rem;
+  color: var(--neutral-500);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.exam-meta .meta-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--neutral-800);
+}
+.exam-card .btn {
+  margin-top: auto;
+}
+
+@media (max-width: 600px) {
+  .topbar-inner {
+    flex-wrap: wrap;
+  }
+  .page-head {
+    align-items: flex-start;
+  }
+  .exam-meta {
+    grid-template-columns: 1fr;
+  }
+}

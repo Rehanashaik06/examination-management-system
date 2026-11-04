@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard | Online Exam System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-brand">
+          <span class="brand-mark-sm">OE</span>
+          <span class="topbar-title">Student Portal</span>
+        </div>
+        <div class="topbar-actions">
+          <div class="topbar-user">
+            <span class="user-label">Welcome,</span>
+            <span class="user-name" id="studentName">Student</span>
+          </div>
+          <button id="logoutBtn" class="btn btn-secondary btn-sm">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="page-head">
+        <div>
+          <h1 class="page-title">Available Examinations</h1>
+          <p class="page-sub">
+            Choose an examination to begin. Review the instructions before starting.
+          </p>
+        </div>
+        <div class="student-card">
+          <div class="student-card-row">
+            <span class="student-card-label">Student ID</span>
+            <span class="student-card-value" id="studentIdValue">—</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="exam-grid" id="examGrid"></section>
+    </main>
+
+    <script type="module" src="/js/dashboard.js"></script>
+  </body>
+</html>
