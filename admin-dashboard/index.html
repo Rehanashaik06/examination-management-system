@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam Portal - Login</title>
+    <link rel="stylesheet" href="css/admin.css" />
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      }
+      .login-card {
+        background: #fff;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        width: 100%;
+        max-width: 400px;
+        padding: 2.5rem 2rem;
+      }
+      .login-logo {
+        text-align: center;
+        margin-bottom: 1.75rem;
+      }
+      .login-logo .icon {
+        font-size: 2.5rem;
+      }
+      .login-logo h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-top: 0.5rem;
+      }
+      .login-logo p {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+      }
+      .login-card .form-group {
+        margin-bottom: 1.25rem;
+      }
+      .login-card .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 0.75rem;
+        font-size: 0.95rem;
+      }
+      .login-hint {
+        text-align: center;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: 1.25rem;
+      }
+    </style>
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+  </head>
+  <body>
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="icon">📝</div>
+        <h1>Exam Portal</h1>
+        <p>Admin Panel Login</p>
+      </div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label">Email <span class="req">*</span></label>
+          <input type="email" class="form-input" id="loginEmail" value="admin@examportal.com" placeholder="admin@example.com" />
+          <div class="form-error" id="loginEmailError">Please enter a valid email.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password <span class="req">*</span></label>
+          <input type="password" class="form-input" id="loginPassword" value="admin123" placeholder="Enter password" />
+          <div class="form-error" id="loginPasswordError">Please enter your password.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Login to Dashboard</button>
+      </form>
+      <p class="login-hint">Demo credentials are pre-filled. Just click Login.</p>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script>
+      document.getElementById('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail');
+        const password = document.getElementById('loginPassword');
+        let valid = true;
+
+        if (!email.value.trim() || !email.value.includes('@')) {
+          email.classList.add('invalid');
+          document.getElementById('loginEmailError').classList.add('active');
+          valid = false;
+        } else {
+          email.classList.remove('invalid');
+          document.getElementById('loginEmailError').classList.remove('active');
+        }
+
+        if (!password.value.trim()) {
+          password.classList.add('invalid');
+          document.getElementById('loginPasswordError').classList.add('active');
+          valid = false;
+        } else {
+          password.classList.remove('invalid');
+          document.getElementById('loginPasswordError').classList.remove('active');
+        }
+
+        if (valid) {
+          window.location.href = 'dashboard.html';
+        }
+      });
+    </script>
+  </body>
+</html>

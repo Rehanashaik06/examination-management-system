@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Exam Portal</title>
+    <link rel="stylesheet" href="css/admin.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <div id="sidebar-root" data-active="dashboard"></div>
+
+      <main class="main-content">
+        <div class="page-wrapper">
+          <div class="page-header">
+            <h1 class="page-title">Dashboard</h1>
+            <p class="page-subtitle">Overview of your examination system</p>
+          </div>
+
+          <!-- Statistics Cards -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon blue">📚</div>
+              <div class="stat-info">
+                <div class="stat-label">Total Exams</div>
+                <div class="stat-value" id="statTotalExams">24</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon green">✅</div>
+              <div class="stat-info">
+                <div class="stat-label">Published Exams</div>
+                <div class="stat-value" id="statPublishedExams">18</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon info">👨‍🎓</div>
+              <div class="stat-info">
+                <div class="stat-label">Total Students</div>
+                <div class="stat-value" id="statTotalStudents">1,248</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon yellow">📈</div>
+              <div class="stat-info">
+                <div class="stat-label">Total Attempts</div>
+                <div class="stat-value" id="statTotalAttempts">892</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Exams -->
+          <div class="panel">
+            <div class="panel-header">
+              <h2 class="panel-title">Recent Exams</h2>
+              <a href="exams.html" class="btn btn-secondary btn-sm">View All</a>
+            </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Exam</th>
+                    <th>Questions</th>
+                    <th>Students</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="recentExamsBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Quick Actions & Recent Activity -->
+          <div class="two-col">
+            <div class="panel">
+              <div class="panel-header">
+                <h2 class="panel-title">Quick Actions</h2>
+              </div>
+              <div class="panel-body quick-actions-list">
+                <a href="exams.html" class="quick-action">
+                  <span class="quick-action-icon">📝</span>
+                  <span>Create New Exam</span>
+                </a>
+                <a href="questions.html" class="quick-action">
+                  <span class="quick-action-icon">❓</span>
+                  <span>Add Questions</span>
+                </a>
+                <a href="students.html" class="quick-action">
+                  <span class="quick-action-icon">👨‍🎓</span>
+                  <span>View Students</span>
+                </a>
+                <a href="results.html" class="quick-action">
+                  <span class="quick-action-icon">📊</span>
+                  <span>View Results</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <h2 class="panel-title">Recent Activity</h2>
+              </div>
+              <div class="panel-body" id="recentActivity"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

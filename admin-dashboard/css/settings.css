@@ -1,0 +1,22 @@
+/* Settings page specific styles */
+
+.settings-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.settings-layout .panel {
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .settings-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.settings-layout form .btn {
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+}
