@@ -1,13 +1,12 @@
 import pytest
-from flask import Flask, session
 
-from admin.routes import admin_bp
+from backend import app as backend_app
 from database.db import get_connection, init_db
 from werkzeug.security import generate_password_hash
 
 
 @pytest.fixture
-def app(tmp_path):
+def app(tmp_path, monkeypatch):
     path = tmp_path / "app.db"
     init_db(path)
     conn = get_connection(path)
@@ -16,14 +15,9 @@ def app(tmp_path):
         ("Student", "student@test", generate_password_hash("secret"), "student"),
     ])
     conn.commit(); conn.close()
-    application = Flask(__name__)
-    application.secret_key = "test-only-secret"
-    application.config["DATABASE_PATH"] = str(path)
-    application.register_blueprint(admin_bp)
-    @application.post("/test-login/<int:user_id>")
-    def login(user_id):
-        session["user_id"] = user_id
-        return "ok"
+    monkeypatch.setattr(backend_app, "DATABASE_PATH", path)
+    application = backend_app.app
+    application.config.update(TESTING=True, DATABASE_PATH=str(path))
     return application
 
 
@@ -32,23 +26,50 @@ def client(app):
     return app.test_client()
 
 
-def login(client, uid):
-    client.post(f"/test-login/{uid}")
+def login(client, email):
+    return client.post("/api/auth/login", json={"email": email, "password": "secret"})
 
 
 def test_authorization(client):
     assert client.get("/api/admin/dashboard").status_code == 401
-    login(client, 2)
+    login(client, "student@test")
     assert client.get("/api/admin/dashboard").status_code == 403
-    login(client, 1)
+    login(client, "admin@test")
     assert client.get("/api/admin/dashboard").status_code == 200
 
 
+def test_admin_blueprint_registration_and_cookie_authentication(client):
+    rules = {rule.rule for rule in client.application.url_map.iter_rules()}
+    assert "/api/admin/dashboard" in rules
+
+    response = login(client, "admin@test")
+    assert response.status_code == 200
+    cookie = response.headers.get("Set-Cookie", "")
+    assert "access_token=" in cookie
+    assert "HttpOnly" in cookie
+    assert client.get("/api/admin/dashboard").status_code == 200
+
+
+def test_invalid_or_stale_admin_cookie_is_rejected(client):
+    client.set_cookie("access_token", "not-a-valid-token")
+    assert client.get("/api/admin/dashboard").status_code == 401
+
+    response = login(client, "admin@test")
+    assert response.status_code == 200
+    conn = get_connection(client.application.config["DATABASE_PATH"])
+    conn.execute("DELETE FROM users WHERE email = ?", ("admin@test",))
+    conn.commit(); conn.close()
+    assert client.get("/api/admin/dashboard").status_code == 401
+
+
 def test_exam_question_management_validation_and_safe_delete(client, app):
-    login(client, 1)
+    login(client, "admin@test")
     assert client.post("/api/admin/exams", json={"title":"bad", "duration_minutes":0}).status_code == 400
     created = client.post("/api/admin/exams", json={"title":" Exam ","duration_minutes":30}).get_json()["exam"]
     assert created["title"] == "Exam"
+    conn = get_connection(app.config["DATABASE_PATH"])
+    assert conn.execute("SELECT created_by FROM exams WHERE id=?", (created["id"],)).fetchone()["created_by"] == 1
+    conn.close()
     eid = created["id"]
     payload = {"question_text":"Q?", "option_a":"a", "option_b":"b", "option_c":"c", "option_d":"d", "correct_option":"B", "marks":2}
     assert client.post(f"/api/admin/exams/{eid}/questions", json={**payload,"correct_option":"X"}).status_code == 400
@@ -64,7 +85,7 @@ def test_exam_question_management_validation_and_safe_delete(client, app):
 
 
 def test_reports_scores_and_omit_password_hash(client, app):
-    login(client, 1)
+    login(client, "admin@test")
     exam = client.post("/api/admin/exams", json={"title":"Report", "duration_minutes":10}).get_json()["exam"]
     question = client.post(f"/api/admin/exams/{exam['id']}/questions", json={"question_text":"Q", "option_a":"A", "option_b":"B", "option_c":"C", "option_d":"D", "correct_option":"C", "marks":3}).get_json()["question"]
     conn = get_connection(app.config["DATABASE_PATH"])

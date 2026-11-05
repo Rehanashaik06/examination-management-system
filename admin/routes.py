@@ -1,14 +1,10 @@
-"""Admin API. Main app should register `admin_bp` and use shared session keys.
-
-Authentication contract: a logged-in session contains `user_id`; role is read
-from the database. A trusted session `role` is accepted for apps whose auth
-stores a signed server-side role, but the browser is never consulted.
-"""
+"""Admin API authenticated by the main application's JWT cookie."""
 from functools import wraps
 import sqlite3
 
-from flask import Blueprint, current_app, jsonify, request, session
+from flask import Blueprint, current_app, g, jsonify, request
 
+from backend.auth import verify_token
 from database.db import get_connection
 
 admin_bp = Blueprint("admin", __name__, url_prefix="/api/admin")
@@ -25,18 +21,21 @@ def _conn():
 def admin_required(fn):
     @wraps(fn)
     def wrapped(*args, **kwargs):
-        uid = session.get("user_id")
-        if not uid:
+        token = request.cookies.get("access_token")
+        claims = verify_token(token) if token else None
+        uid = claims.get("user_id") if claims else None
+        if not isinstance(uid, int) or isinstance(uid, bool):
             return _error("UNAUTHENTICATED", "Authentication required", 401)
         conn = _conn()
         try:
-            user = conn.execute("SELECT role FROM users WHERE id=?", (uid,)).fetchone()
+            user = conn.execute("SELECT id, role FROM users WHERE id=?", (uid,)).fetchone()
         finally:
             conn.close()
         if not user:
             return _error("UNAUTHENTICATED", "Authentication required", 401)
         if user["role"] != "admin":
             return _error("FORBIDDEN", "Administrator access required", 403)
+        g.admin_user_id = user["id"]
         return fn(*args, **kwargs)
     return wrapped
 
@@ -116,7 +115,7 @@ def create_exam():
     if err: return _error("VALIDATION_ERROR", err, 400)
     conn = _conn()
     try:
-        cur = conn.execute("INSERT INTO exams(title,description,duration_minutes,is_published,created_by) VALUES(?,?,?,?,?)", (fields["title"], fields["description"], fields["duration_minutes"], fields["is_published"], session.get("user_id")))
+        cur = conn.execute("INSERT INTO exams(title,description,duration_minutes,is_published,created_by) VALUES(?,?,?,?,?)", (fields["title"], fields["description"], fields["duration_minutes"], fields["is_published"], g.admin_user_id))
         conn.commit()
         row = conn.execute("SELECT id,title,description,duration_minutes,is_published,created_at FROM exams WHERE id=?", (cur.lastrowid,)).fetchone()
         return jsonify({"exam": dict(row)}), 201

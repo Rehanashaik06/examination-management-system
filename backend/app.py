@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 from datetime import datetime, timezone
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 
 # --------------------------------------------------
@@ -12,12 +12,14 @@ from flask_cors import CORS
 # --------------------------------------------------
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+FRONTEND_DIR = PROJECT_ROOT / "frontend"
 
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from auth import check_password, generate_token, verify_token
-from config import DATABASE_PATH
+from admin.routes import admin_bp
+from backend.auth import check_password, generate_token, verify_token
+from backend.config import DATABASE_PATH
 from database.db import connection
 
 
@@ -26,6 +28,8 @@ from database.db import connection
 # --------------------------------------------------
 
 app = Flask(__name__)
+app.config["DATABASE_PATH"] = DATABASE_PATH
+app.register_blueprint(admin_bp)
 
 CORS(
     app,
@@ -86,15 +90,22 @@ def get_current_time():
 
 @app.route("/", methods=["GET"])
 def home():
-
-    return api_response(
-        True,
-        "Online Examination System Backend is running",
-        {
-            "service": "Online Examination System",
-            "backend": "Flask"
-        }
-    ), 200
+    return send_from_directory(FRONTEND_DIR, "index.html")
+@app.route("/<path:filename>", methods=["GET"])
+def frontend_files(filename):
+    allowed_pages = {
+        "admin.html",
+        "dashboard.html",
+        "exam.html",
+        "index.html",
+        "instructions.html",
+        "result.html",
+    }
+    if filename in allowed_pages:
+        return send_from_directory(FRONTEND_DIR, filename)
+    if filename.startswith(("css/", "js/")):
+        return send_from_directory(FRONTEND_DIR, filename)
+    return "", 404
 
 
 # --------------------------------------------------
