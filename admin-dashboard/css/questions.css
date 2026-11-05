@@ -1,0 +1,8 @@
+/* Questions page specific styles */
+
+.question-text-cell {
+  max-width: 340px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

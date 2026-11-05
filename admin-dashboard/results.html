@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Results - Exam Portal</title>
+    <link rel="stylesheet" href="css/admin.css" />
+    <link rel="stylesheet" href="css/results.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <div id="sidebar-root" data-active="results"></div>
+
+      <main class="main-content">
+        <div class="page-wrapper">
+          <div class="page-header">
+            <h1 class="page-title">Results</h1>
+            <p class="page-subtitle">View and manage examination results</p>
+          </div>
+
+          <!-- Statistics -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon blue">📊</div>
+              <div class="stat-info">
+                <div class="stat-label">Total Results</div>
+                <div class="stat-value" id="resultStatTotal">5</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon green">📈</div>
+              <div class="stat-info">
+                <div class="stat-label">Average Score</div>
+                <div class="stat-value" id="resultStatAvg">76%</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon yellow">🏆</div>
+              <div class="stat-info">
+                <div class="stat-label">Highest Score</div>
+                <div class="stat-value" id="resultStatHigh">92%</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon info">✅</div>
+              <div class="stat-info">
+                <div class="stat-label">Pass Percentage</div>
+                <div class="stat-value" id="resultStatPass">80%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results Table Panel -->
+          <div class="panel">
+            <div class="toolbar">
+              <div class="toolbar-left">
+                <div class="search-input">
+                  <input type="text" id="resultSearch" placeholder="Search results..." />
+                </div>
+                <select class="filter-select" id="resultExamFilter">
+                  <option value="all">All Exams</option>
+                  <option value="Data Structures">Data Structures</option>
+                  <option value="Machine Learning">Machine Learning</option>
+                  <option value="Operating Systems">Operating Systems</option>
+                  <option value="Database Management">Database Management</option>
+                </select>
+                <select class="filter-select" id="resultDeptFilter">
+                  <option value="all">All Departments</option>
+                  <option value="CSE">CSE</option>
+                  <option value="ECE">ECE</option>
+                  <option value="IT">IT</option>
+                  <option value="ME">ME</option>
+                </select>
+                <select class="filter-select" id="resultStatusFilter">
+                  <option value="all">All Results</option>
+                  <option value="pass">Pass</option>
+                  <option value="fail">Fail</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Student ID</th>
+                    <th>Exam</th>
+                    <th>Score</th>
+                    <th>Percentage</th>
+                    <th>Grade</th>
+                    <th>Result</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="resultsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- View Result Detail Modal -->
+    <div class="modal-overlay" id="resultModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Result Details</h2>
+          <button class="modal-close" onclick="closeModal('resultModal')">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="detail-grid" id="resultDetailGrid"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="closeModal('resultModal')">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script src="js/results.js"></script>
+  </body>
+</html>

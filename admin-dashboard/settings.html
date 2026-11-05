@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings - Exam Portal</title>
+    <link rel="stylesheet" href="css/admin.css" />
+    <link rel="stylesheet" href="css/settings.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <div id="sidebar-root" data-active="settings"></div>
+
+      <main class="main-content">
+        <div class="page-wrapper">
+          <div class="page-header">
+            <h1 class="page-title">Settings</h1>
+            <p class="page-subtitle">Manage your admin dashboard settings</p>
+          </div>
+
+          <div class="settings-layout">
+            <!-- Profile Settings -->
+            <div class="panel">
+              <div class="panel-header">
+                <h2 class="panel-title">👤 Profile Settings</h2>
+              </div>
+              <div class="panel-body">
+                <form id="profileForm">
+                  <div class="form-group">
+                    <label class="form-label">Admin Name <span class="req">*</span></label>
+                    <input type="text" class="form-input" id="adminName" value="Admin User" />
+                    <div class="form-error" id="adminNameError">Please enter admin name.</div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Admin Email <span class="req">*</span></label>
+                    <input type="email" class="form-input" id="adminEmail" value="admin@examportal.com" />
+                    <div class="form-error" id="adminEmailError">Please enter a valid email.</div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" class="form-input" id="adminPhone" value="+91 98765 43210" />
+                  </div>
+                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                  <button type="button" class="btn btn-secondary" id="resetProfileBtn">Reset</button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Change Password -->
+            <div class="panel">
+              <div class="panel-header">
+                <h2 class="panel-title">🔒 Change Password</h2>
+              </div>
+              <div class="panel-body">
+                <form id="passwordForm">
+                  <div class="form-group">
+                    <label class="form-label">Current Password <span class="req">*</span></label>
+                    <input type="password" class="form-input" id="currentPassword" placeholder="Enter current password" />
+                    <div class="form-error" id="currentPasswordError">Please enter current password.</div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">New Password <span class="req">*</span></label>
+                    <input type="password" class="form-input" id="newPassword" placeholder="Enter new password" />
+                    <div class="form-error" id="newPasswordError">Password must be at least 6 characters.</div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Confirm Password <span class="req">*</span></label>
+                    <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm new password" />
+                    <div class="form-error" id="confirmPasswordError">Passwords do not match.</div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update Password</button>
+                  <button type="button" class="btn btn-secondary" id="resetPasswordBtn">Reset</button>
+                </form>
+              </div>
+            </div>
+
+            <!-- System Settings -->
+            <div class="panel">
+              <div class="panel-header">
+                <h2 class="panel-title">⚙️ System Settings</h2>
+              </div>
+              <div class="panel-body">
+                <form id="systemForm">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">Exam Duration (minutes) <span class="req">*</span></label>
+                      <input type="number" class="form-input" id="examDuration" value="60" min="1" />
+                      <div class="form-error" id="examDurationError">Please enter a valid duration.</div>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Default Marks <span class="req">*</span></label>
+                      <input type="number" class="form-input" id="defaultMarks" value="1" min="1" />
+                      <div class="form-error" id="defaultMarksError">Please enter valid marks.</div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">Passing Percentage <span class="req">*</span></label>
+                      <input type="number" class="form-input" id="passingPct" value="50" min="1" max="100" />
+                      <div class="form-error" id="passingPctError">Please enter a value between 1 and 100.</div>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Result Visibility</label>
+                      <select class="form-select" id="resultVisibility">
+                        <option value="immediate">Immediate (after submission)</option>
+                        <option value="manual">Manual (published by admin)</option>
+                        <option value="scheduled">Scheduled (on specific date)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                  <button type="button" class="btn btn-secondary" id="resetSystemBtn">Reset</button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Notification Settings -->
+            <div class="panel">
+              <div class="panel-header">
+                <h2 class="panel-title">🔔 Notification Settings</h2>
+              </div>
+              <div class="panel-body">
+                <div class="toggle-row">
+                  <div>
+                    <div class="toggle-label">Email Notifications</div>
+                    <div class="toggle-desc">Receive system updates via email</div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="notifEmail" checked />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="toggle-row">
+                  <div>
+                    <div class="toggle-label">Exam Notifications</div>
+                    <div class="toggle-desc">Get notified when exams are created or published</div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="notifExam" checked />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="toggle-row">
+                  <div>
+                    <div class="toggle-label">Result Notifications</div>
+                    <div class="toggle-desc">Get notified when results are generated</div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="notifResult" />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div style="margin-top: 1.25rem">
+                  <button class="btn btn-primary" id="saveNotifBtn">Save Changes</button>
+                  <button class="btn btn-secondary" id="resetNotifBtn">Reset</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script src="js/settings.js"></script>
+  </body>
+</html>
